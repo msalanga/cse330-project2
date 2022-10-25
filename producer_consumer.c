@@ -24,7 +24,9 @@ MODULE_PARAM_DESC(buffSize, "Size of buffer");
 MODULE_PARAM_DESC(cons, "UUID of user");
 
 struct task_struct tasks[] = vmalloc(buffSize*sizeof(struct task_struct));
+
 int productionI = 0;  
+
 int consumerI = 0; 
 
 struct semaphore empty, mutex, full; 
@@ -75,6 +77,7 @@ int main() {
   	sema_init(&full, 0);
   	sema_init(&mutex, 1);
         int i = 0;
+	
 	for(i = 0; i < prod; i++) {
 		productionI = kthread_run(production, NULL, "Producer-1");
 	}
